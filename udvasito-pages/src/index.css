@@ -1,0 +1,60 @@
+@import '@fontsource/playfair-display/400.css';
+@import '@fontsource/playfair-display/400-italic.css';
+@import '@fontsource/playfair-display/700.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 30 25% 80%;
+    --foreground: 30 10% 15%;
+    --card: 30 20% 85%;
+    --card-foreground: 30 10% 15%;
+    --popover: 30 20% 88%;
+    --popover-foreground: 30 10% 15%;
+    --primary: 30 10% 20%;
+    --primary-foreground: 30 25% 92%;
+    --secondary: 30 20% 75%;
+    --secondary-foreground: 30 10% 20%;
+    --muted: 30 15% 70%;
+    --muted-foreground: 30 10% 40%;
+    --accent: 30 30% 65%;
+    --accent-foreground: 30 10% 15%;
+    --destructive: 0 65% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 30 15% 60%;
+    --input: 30 15% 70%;
+    --ring: 30 20% 40%;
+    --radius: 0.25rem;
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground antialiased; font-family: var(--font-body); }
+  h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
+}
+
+@layer components {
+  .heading-display { font-family: var(--font-heading); @apply text-foreground tracking-tight; }
+  .heading-italic { font-family: var(--font-heading); @apply italic text-foreground; }
+  .btn-editorial {
+    @apply inline-flex items-center justify-center gap-3 px-8 py-4 
+           border border-foreground bg-transparent text-foreground
+           font-medium tracking-widest uppercase text-sm
+           transition-all duration-300
+           hover:bg-foreground hover:text-background;
+  }
+  .input-editorial {
+    @apply bg-transparent border-b border-foreground/30 px-0 py-3
+           text-foreground placeholder:text-muted-foreground
+           focus:border-foreground focus:outline-none transition-colors;
+  }
+}

@@ -1,73 +1,69 @@
-# Welcome to your Lovable project
+# Udvasito Pathshala - Book Publication Platform
 
-## Project info
+## Overview
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+Udvasito Pathshala is a full-stack e-commerce website for a Bangladeshi book publication house. The platform enables customers to browse and purchase books online, view the publisher's portfolio of published works, and contact the business. The application features a literary/editorial design aesthetic with Bengali typography support and a warm sand/cream color palette.
 
-## How can I edit this code?
+## User Preferences
 
-There are several ways of editing your application.
+Preferred communication style: Simple, everyday language.
 
-**Use Lovable**
+## System Architecture
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+### Frontend Architecture
+- **Framework**: React 18 with TypeScript, built using Vite with SWC for fast compilation
+- **Routing**: React Router DOM for client-side navigation with Framer Motion page transitions
+- **State Management**: 
+  - Zustand with localStorage persistence for cart data
+  - TanStack React Query for server state and API caching
+- **UI Components**: shadcn/ui component library built on Radix UI primitives
+- **Styling**: Tailwind CSS with custom design tokens (sand, charcoal, cream color palette)
+- **Typography**: Playfair Display for headings, Inter for body text
 
-Changes made via Lovable will be committed automatically to this repo.
+### Backend Architecture
+- **Runtime**: Node.js with Express.js
+- **API Design**: RESTful JSON API with all routes prefixed under `/api/`
+- **Development Mode**: Vite dev server integrated with Express via middleware mode for HMR support
+- **File Uploads**: Multer handles image uploads, stored in `public/uploads` directory
+- **Production Build**: esbuild bundles the server, Vite builds the client
 
-**Use your preferred IDE**
+### Database Layer
+- **Database**: PostgreSQL via Neon serverless driver with WebSocket connections
+- **ORM**: Drizzle ORM for type-safe queries and migrations
+- **Schema Location**: `shared/schema.ts` contains all table definitions and Zod validation schemas
+- **Migrations**: Run via `npm run db:push` using drizzle-kit
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Data Models
+- **Books**: id, title, author, price, description, coverImage, category, featured, isbn, pages, publishedYear, inStock
+- **Portfolio**: id, title, description, image, category, author, year
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Key Design Decisions
 
-Follow these steps:
+1. **Monorepo with Shared Types**: Frontend and backend share TypeScript types through `shared/schema.ts`, ensuring type safety across the full stack without code duplication.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+2. **Client-Side Cart Persistence**: Cart state is managed in Zustand with localStorage persistence. This reduces server load and provides offline-capable cart functionality.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+3. **Hidden Admin Access**: The admin panel is accessed via a secret click pattern (4 rapid clicks on the logo) rather than a visible link, providing security through obscurity for the small publisher use case.
 
-# Step 3: Install the necessary dependencies.
-npm i
+4. **Serverless Database**: Uses Neon PostgreSQL with WebSocket connections, making the app compatible with serverless deployment environments.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+5. **Email-Based Notifications**: EmailJS handles contact forms and order notifications client-side, eliminating the need for a dedicated mail server.
 
-**Edit a file directly in GitHub**
+## External Dependencies
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Database
+- **PostgreSQL**: Primary data store via Neon serverless (`@neondatabase/serverless`)
+- **Drizzle ORM**: Schema management and queries (`drizzle-orm`, `drizzle-kit`)
+- **Required Environment Variable**: `DATABASE_URL` must be set to the Neon connection string
 
-**Use GitHub Codespaces**
+### Third-Party Services
+- **EmailJS**: Client-side email delivery for contact forms and order notifications
+  - Configured via environment variables: `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID`, `VITE_EMAILJS_PUBLIC_KEY`
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+### Key NPM Packages
+- `@tanstack/react-query`: Server state management and caching
+- `zustand`: Client-side state management with persistence
+- `framer-motion`: Page transition animations
+- `multer`: Server-side file upload handling
+- `zod`: Runtime schema validation (via drizzle-zod)
+- Full shadcn/ui component set via Radix UI primitives

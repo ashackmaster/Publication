@@ -31,6 +31,6 @@ export const insertBookSchema = createInsertSchema(books);
 export const insertPortfolioSchema = createInsertSchema(portfolio);
 
 export type Book = typeof books.$inferSelect;
-export type InsertBook = z.infer<typeof insertBookSchema>;
+export type InsertBook = typeof books.$inferInsert;
 export type Portfolio = typeof portfolio.$inferSelect;
-export type InsertPortfolio = z.infer<typeof insertPortfolioSchema>;
+export type InsertPortfolio = typeof portfolio.$inferInsert;

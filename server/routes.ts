@@ -77,18 +77,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.post("/api/upload", upload.single("file"), async (req, res) => {
-    if (!req.file) return res.status(400).send("No file uploaded");
+    console.log("Upload request received");
+    if (!req.file) {
+      console.log("No file in request");
+      return res.status(400).send("No file uploaded");
+    }
     
     try {
+      console.log("File details:", {
+        mimetype: req.file.mimetype,
+        size: req.file.size
+      });
+
       const b64 = Buffer.from(req.file.buffer).toString("base64");
       let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+      
+      console.log("Attempting Cloudinary upload...");
       const response = await cloudinary.uploader.upload(dataURI, {
         resource_type: "auto",
+        folder: "udvasito_pathshala"
       });
+      
+      console.log("Cloudinary upload successful:", response.secure_url);
       res.json({ url: response.secure_url });
-    } catch (error) {
-      console.error("Cloudinary upload failed:", error);
-      res.status(500).json({ message: "Upload failed" });
+    } catch (error: any) {
+      console.error("Cloudinary upload error details:", {
+        message: error.message,
+        stack: error.stack,
+        http_code: error.http_code
+      });
+      res.status(500).json({ 
+        message: "Upload failed", 
+        error: error.message,
+        details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      });
     }
   });
 

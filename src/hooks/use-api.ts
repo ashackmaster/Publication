@@ -63,7 +63,10 @@ export function useUploadImage() {
         method: "POST",
         body: formData,
       });
-      if (!res.ok) throw new Error("Upload failed");
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.message || "Upload failed");
+      }
       return res.json();
     }
   });

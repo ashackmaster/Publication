@@ -5,19 +5,17 @@ import { insertBookSchema, insertPortfolioSchema } from "../shared/schema";
 import multer from "multer";
 import path from "path";
 import express from "express";
+import { v2 as cloudinary } from "cloudinary";
 
-const upload = multer({
-  storage: multer.diskStorage({
-    destination: "./public/uploads",
-    filename: (req, file, cb) => {
-      cb(null, Date.now() + path.extname(file.originalname));
-    },
-  }),
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export async function registerRoutes(app: Express): Promise<Server> {
-  app.use("/uploads", express.static("./public/uploads"));
+const upload = multer({ storage: multer.memoryStorage() });
 
+export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/books", async (_req, res) => {
     const books = await storage.getBooks();
     res.json(books);
@@ -68,9 +66,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.sendStatus(204);
   });
 
-  app.post("/api/upload", upload.single("file"), (req, res) => {
+  app.post("/api/upload", upload.single("file"), async (req, res) => {
     if (!req.file) return res.status(400).send("No file uploaded");
-    res.json({ url: `/uploads/${req.file.filename}` });
+    
+    try {
+      const b64 = Buffer.from(req.file.buffer).toString("base64");
+      let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+      const response = await cloudinary.uploader.upload(dataURI, {
+        resource_type: "auto",
+      });
+      res.json({ url: response.secure_url });
+    } catch (error) {
+      console.error("Cloudinary upload failed:", error);
+      res.status(500).json({ message: "Upload failed" });
+    }
   });
 
   const httpServer = createServer(app);

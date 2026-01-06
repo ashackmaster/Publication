@@ -155,16 +155,37 @@ const AdminPanel = () => {
             {activeTab === 'books' ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
-                  <input placeholder="Book Title" value={newBook.title} onChange={e => setNewBook({...newBook, title: e.target.value})} className="input-editorial w-full" />
-                  <input placeholder="Author Name" value={newBook.author} onChange={e => setNewBook({...newBook, author: e.target.value})} className="input-editorial w-full" />
+                  <div className="space-y-1">
+                    <label className="text-xs font-medium text-muted-foreground ml-1">Book Title</label>
+                    <input placeholder="Enter title..." value={newBook.title} onChange={e => setNewBook({...newBook, title: e.target.value})} className="input-editorial w-full" />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-medium text-muted-foreground ml-1">Author Name</label>
+                    <input placeholder="Enter author name..." value={newBook.author} onChange={e => setNewBook({...newBook, author: e.target.value})} className="input-editorial w-full" />
+                  </div>
                   <div className="grid grid-cols-2 gap-4">
-                    <input type="number" placeholder="Price (৳)" value={newBook.price} onChange={e => setNewBook({...newBook, price: parseInt(e.target.value) || 0})} className="input-editorial w-full" />
-                    <input placeholder="Category" value={newBook.category} onChange={e => setNewBook({...newBook, category: e.target.value})} className="input-editorial w-full" />
+                    <div className="space-y-1">
+                      <label className="text-xs font-medium text-muted-foreground ml-1">Price (৳)</label>
+                      <input type="number" placeholder="0.00" value={newBook.price} onChange={e => setNewBook({...newBook, price: parseInt(e.target.value) || 0})} className="input-editorial w-full" />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-xs font-medium text-muted-foreground ml-1">Category</label>
+                      <input placeholder="e.g. Novel, Poetry..." value={newBook.category} onChange={e => setNewBook({...newBook, category: e.target.value})} className="input-editorial w-full" />
+                    </div>
                   </div>
                   <div className="grid grid-cols-3 gap-4">
-                    <input placeholder="ISBN" value={newBook.isbn} onChange={e => setNewBook({...newBook, isbn: e.target.value})} className="input-editorial w-full" />
-                    <input type="number" placeholder="Pages" value={newBook.pages} onChange={e => setNewBook({...newBook, pages: parseInt(e.target.value) || 0})} className="input-editorial w-full" />
-                    <input type="number" placeholder="Year" value={newBook.publishedYear} onChange={e => setNewBook({...newBook, publishedYear: parseInt(e.target.value) || 0})} className="input-editorial w-full" />
+                    <div className="space-y-1">
+                      <label className="text-xs font-medium text-muted-foreground ml-1">ISBN</label>
+                      <input placeholder="ISBN..." value={newBook.isbn} onChange={e => setNewBook({...newBook, isbn: e.target.value})} className="input-editorial w-full" />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-xs font-medium text-muted-foreground ml-1">Total Pages</label>
+                      <input type="number" placeholder="0" value={newBook.pages} onChange={e => setNewBook({...newBook, pages: parseInt(e.target.value) || 0})} className="input-editorial w-full" />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-xs font-medium text-muted-foreground ml-1">Pub. Year</label>
+                      <input type="number" placeholder="2024" value={newBook.publishedYear} onChange={e => setNewBook({...newBook, publishedYear: parseInt(e.target.value) || 0})} className="input-editorial w-full" />
+                    </div>
                   </div>
                 </div>
                 <div className="space-y-4">

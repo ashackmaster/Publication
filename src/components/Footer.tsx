@@ -88,9 +88,9 @@ export const Footer = () => {
           <div>
             <h4 className="font-heading text-lg mb-6">Contact Us</h4>
             <address className="not-italic space-y-4">
-              <div className="flex items-start gap-3 text-background/70"><MapPin className="w-5 h-5 shrink-0" /><span>House 123, Road 45, Gulshan, Dhaka</span></div>
-              <div className="flex items-center gap-3 text-background/70"><Mail className="w-5 h-5" /><span>info@udvasitopathshala.com</span></div>
-              <div className="flex items-center gap-3 text-background/70"><Phone className="w-5 h-5" /><span>+880 1XXX-XXXXXX</span></div>
+              <div className="flex items-start gap-3 text-background/70"><MapPin className="w-5 h-5 shrink-0" /><span>Mujibor Market, Faidabad, Dhaka 1230</span></div>
+              <div className="flex items-center gap-3 text-background/70"><Mail className="w-5 h-5" /><span>saeedahmad.ashackmaster@gmail.com</span></div>
+              <div className="flex items-center gap-3 text-background/70"><Phone className="w-5 h-5" /><span>+880 1404-611746</span></div>
             </address>
           </div>
         </div>

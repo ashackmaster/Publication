@@ -76,8 +76,8 @@ const Contact = () => {
                 <div>
                   <h3 className="font-heading text-lg mb-2">Visit Us</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    House 123, Road 45<br />
-                    Gulshan, Dhaka 1212<br />
+                    Mujibor Market, Faidabad<br />
+                    Dhaka 1230<br />
                     Bangladesh
                   </p>
                 </div>
@@ -90,8 +90,7 @@ const Contact = () => {
                 <div>
                   <h3 className="font-heading text-lg mb-2">Email Us</h3>
                   <p className="text-muted-foreground">
-                    info@udvasitopathshala.com<br />
-                    submissions@udvasitopathshala.com
+                    saeedahmad.ashackmaster@gmail.com
                   </p>
                 </div>
               </div>
@@ -103,8 +102,7 @@ const Contact = () => {
                 <div>
                   <h3 className="font-heading text-lg mb-2">Call Us</h3>
                   <p className="text-muted-foreground">
-                    +880 1XXX-XXXXXX<br />
-                    +880 1XXX-XXXXXX
+                    +880 1404-611746
                   </p>
                 </div>
               </div>

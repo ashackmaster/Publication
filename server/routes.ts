@@ -13,7 +13,7 @@ dotenv.config();
 
 // Direct configuration with explicit values
 const CLOUDINARY_CONFIG = {
-  cloud_name: "app223",
+  cloud_name: "dgxihzedv",
   api_key: "666843267551724",
   api_secret: "GHQekoTiqpXNOdvX2Td3GCdx06o",
 };

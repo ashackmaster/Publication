@@ -47,10 +47,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.post("/api/portfolio", async (req, res) => {
-    const parsed = insertPortfolioSchema.safeParse(req.body);
-    if (!parsed.success) return res.status(400).json(parsed.error);
-    const item = await storage.createPortfolio(parsed.data);
-    res.json(item);
+    try {
+      console.log("Portfolio POST request body:", req.body);
+      const parsed = insertPortfolioSchema.safeParse(req.body);
+      if (!parsed.success) {
+        console.error("Portfolio validation error:", parsed.error);
+        return res.status(400).json(parsed.error);
+      }
+      const item = await storage.createPortfolio(parsed.data);
+      console.log("Portfolio item created:", item);
+      res.json(item);
+    } catch (error) {
+      console.error("Portfolio creation failed:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
   });
 
   app.delete("/api/portfolio/:id", async (req, res) => {

@@ -64,12 +64,18 @@ const AdminPanel = () => {
 
   const handleAddPortfolio = async () => {
     try {
-      await createPortfolio.mutateAsync(newPortfolio);
+      console.log("Submitting new portfolio:", newPortfolio);
+      const payload = {
+        ...newPortfolio,
+        year: parseInt(newPortfolio.year.toString()) || new Date().getFullYear()
+      };
+      await createPortfolio.mutateAsync(payload);
       queryClient.invalidateQueries({ queryKey: ["/api/portfolio"] });
       setShowAddForm(false);
       setNewPortfolio({ title: '', description: '', image: '', category: '', author: '', year: new Date().getFullYear() });
       toast.success('Portfolio item added successfully');
     } catch (err) {
+      console.error("Portfolio addition error:", err);
       toast.error('Failed to add portfolio item');
     }
   };

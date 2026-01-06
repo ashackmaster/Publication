@@ -6,6 +6,16 @@ import multer from "multer";
 import path from "path";
 import express from "express";
 import { v2 as cloudinary } from "cloudinary";
+import dotenv from "dotenv";
+
+// Load environment variables explicitly
+dotenv.config();
+
+console.log("Cloudinary Config Check:", {
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME ? "SET" : "MISSING",
+  api_key: process.env.CLOUDINARY_API_KEY ? "SET" : "MISSING",
+  api_secret: process.env.CLOUDINARY_API_SECRET ? "SET" : "MISSING",
+});
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,

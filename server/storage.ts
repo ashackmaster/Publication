@@ -3,6 +3,10 @@ import { drizzle } from 'drizzle-orm/neon-serverless';
 import ws from 'ws';
 import * as schema from "../shared/schema";
 import { eq } from "drizzle-orm";
+import dotenv from "dotenv";
+
+// Load environment variables explicitly
+dotenv.config();
 
 neonConfig.webSocketConstructor = ws;
 

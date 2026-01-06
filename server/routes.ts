@@ -11,22 +11,16 @@ import dotenv from "dotenv";
 // Load environment variables explicitly
 dotenv.config();
 
-// Use values from .env directly if process.env is stale
-const cloud_name = "app223";
-const api_key = "666843267551724";
-const api_secret = "GHQekoTiqpXNOdvX2Td3GCdx06o";
-
-console.log("Cloudinary Config Check:", {
-  cloud_name: "app223",
-  api_key: "SET",
-  api_secret: "SET",
-});
-
-cloudinary.config({
+// Direct configuration with explicit values
+const CLOUDINARY_CONFIG = {
   cloud_name: "app223",
   api_key: "666843267551724",
   api_secret: "GHQekoTiqpXNOdvX2Td3GCdx06o",
-});
+};
+
+cloudinary.config(CLOUDINARY_CONFIG);
+
+console.log("Cloudinary Configuration initialized for:", CLOUDINARY_CONFIG.cloud_name);
 
 const upload = multer({ storage: multer.memoryStorage() });
 

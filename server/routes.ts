@@ -46,6 +46,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json(items);
   });
 
+  app.post("/api/portfolio", async (req, res) => {
+    const parsed = insertPortfolioSchema.safeParse(req.body);
+    if (!parsed.success) return res.status(400).json(parsed.error);
+    const item = await storage.createPortfolio(parsed.data);
+    res.json(item);
+  });
+
   app.delete("/api/portfolio/:id", async (req, res) => {
     await storage.deletePortfolio(parseInt(req.params.id));
     res.sendStatus(204);

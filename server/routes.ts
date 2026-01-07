@@ -76,39 +76,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.post("/api/upload", upload.single("file"), async (req, res) => {
-    console.log("Upload request received");
+    console.log("Upload request received at", new Date().toISOString());
     if (!req.file) {
-      console.log("No file in request");
+      console.error("No file in request at", new Date().toISOString());
       return res.status(400).send("No file uploaded");
     }
     
     try {
-      console.log("File details:", {
+      console.log("File details for Vercel:", {
         mimetype: req.file.mimetype,
-        size: req.file.size
+        size: req.file.size,
+        fieldname: req.file.fieldname
       });
 
       const b64 = Buffer.from(req.file.buffer).toString("base64");
       let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
       
-      console.log("Attempting Cloudinary upload...");
+      console.log("Attempting Cloudinary upload for Vercel...");
+      // Explicitly pass credentials to avoid environment variable issues on Vercel
       const response = await cloudinary.uploader.upload(dataURI, {
         resource_type: "auto",
-        folder: "udvasito_pathshala"
+        folder: "udvasito_pathshala",
+        cloud_name: "dgxihzedv",
+        api_key: "666843267551724",
+        api_secret: "GHQekoTiqpXNOdvX2Td3GCdx06o"
       });
       
-      console.log("Cloudinary upload successful:", response.secure_url);
+      console.log("Cloudinary upload successful on Vercel:", response.secure_url);
       res.json({ url: response.secure_url });
     } catch (error: any) {
-      console.error("Cloudinary upload error details:", {
+      console.error("Cloudinary upload error on Vercel:", {
         message: error.message,
         stack: error.stack,
-        http_code: error.http_code
+        http_code: error.http_code,
+        timestamp: new Date().toISOString()
       });
       res.status(500).json({ 
         message: "Upload failed", 
         error: error.message,
-        details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+        details: error.stack
       });
     }
   });

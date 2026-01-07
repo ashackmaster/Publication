@@ -15,7 +15,7 @@ if (!process.env.DATABASE_URL) {
 }
 
 // Add SSL requirement for Neon on Vercel/Production
-const connectionString = process.env.DATABASE_URL.includes('sslmode=require') 
+const connectionString = process.env.DATABASE_URL.includes('sslmode=') 
   ? process.env.DATABASE_URL 
   : `${process.env.DATABASE_URL}${process.env.DATABASE_URL.includes('?') ? '&' : '?'}sslmode=require`;
 

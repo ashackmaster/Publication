@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
-import type { Book, Portfolio, InsertBook, InsertPortfolio } from "@shared/schema";
+import type { Book, Portfolio, InsertBook, InsertPortfolio } from "../../shared/schema";
 
 export const apiRequest = async (method: string, url: string, data?: unknown) => {
   const res = await fetch(url, {

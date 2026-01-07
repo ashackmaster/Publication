@@ -94,13 +94,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       console.log("Attempting Cloudinary upload for Vercel...");
       // Explicitly pass credentials to avoid environment variable issues on Vercel
-      const response = await cloudinary.uploader.upload(dataURI, {
-        resource_type: "auto",
-        folder: "udvasito_pathshala",
-        cloud_name: "dgxihzedv",
-        api_key: "666843267551724",
-        api_secret: "GHQekoTiqpXNOdvX2Td3GCdx06o"
+      // Use upload_stream for better compatibility with Vercel's serverless environment
+      const uploadPromise = new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          {
+            resource_type: "auto",
+            folder: "udvasito_pathshala",
+            cloud_name: "dgxihzedv",
+            api_key: "666843267551724",
+            api_secret: "GHQekoTiqpXNOdvX2Td3GCdx06o"
+          },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          }
+        );
+        uploadStream.end(req.file.buffer);
       });
+
+      const response = await uploadPromise as any;
       
       console.log("Cloudinary upload successful on Vercel:", response.secure_url);
       res.json({ url: response.secure_url });

@@ -14,7 +14,12 @@ if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL must be set. Did you forget to provision a database?");
 }
 
-export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+// Add SSL requirement for Neon on Vercel/Production
+const connectionString = process.env.DATABASE_URL.includes('sslmode=require') 
+  ? process.env.DATABASE_URL 
+  : `${process.env.DATABASE_URL}${process.env.DATABASE_URL.includes('?') ? '&' : '?'}sslmode=require`;
+
+export const pool = new Pool({ connectionString });
 export const db = drizzle(pool, { schema });
 
 export interface IStorage {

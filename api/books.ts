@@ -1,5 +1,5 @@
-import { storage } from "../server/storage";
-import { insertBookSchema } from "../shared/schema";
+import { storage } from "../server/storage.js";
+import { insertBookSchema } from "../shared/schema.js";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {

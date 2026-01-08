@@ -56,6 +56,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   async deleteBook(id: number): Promise<void> {
+    console.log("Database: Deleting book with ID:", id);
     await db.delete(schema.books).where(eq(schema.books.id, id));
   }
 
@@ -74,6 +75,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   async deletePortfolio(id: number): Promise<void> {
+    console.log("Database: Deleting portfolio with ID:", id);
     await db.delete(schema.portfolio).where(eq(schema.portfolio.id, id));
   }
 }

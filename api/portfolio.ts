@@ -19,7 +19,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     if (method === "DELETE") {
-      const id = parseInt(req.query.id as string);
+      const idStr = req.query.id as string;
+      const id = parseInt(idStr);
+      console.log("Delete Portfolio requested for ID:", idStr, "Parsed ID:", id);
       if (isNaN(id)) return res.status(400).json({ message: "Invalid ID" });
       await storage.deletePortfolio(id);
       return res.status(204).end();

@@ -270,7 +270,7 @@ const AdminPanel = () => {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <button onClick={async () => { if(confirm('Delete book?')) { await apiRequest("DELETE", `/api/books/${book.id}`); queryClient.invalidateQueries({queryKey: ["/api/books"]}); toast.success('Book deleted'); } }} className="p-3 text-muted-foreground hover:text-destructive hover:bg-muted transition-all">
+                  <button onClick={async () => { if(confirm('Delete book?')) { await apiRequest("DELETE", `/api/books?id=${book.id}`); queryClient.invalidateQueries({queryKey: ["/api/books"]}); toast.success('Book deleted'); } }} className="p-3 text-muted-foreground hover:text-destructive hover:bg-muted transition-all">
                     <Trash2 className="w-5 h-5" />
                   </button>
                 </div>
@@ -285,7 +285,7 @@ const AdminPanel = () => {
                   <p className="text-sm text-muted-foreground">{item.author} • {item.category} • {item.year}</p>
                 </div>
                 <div className="flex gap-2">
-                  <button onClick={async () => { if(confirm('Delete item?')) { await apiRequest("DELETE", `/api/portfolio/${item.id}`); queryClient.invalidateQueries({queryKey: ["/api/portfolio"]}); toast.success('Item deleted'); } }} className="p-3 text-muted-foreground hover:text-destructive hover:bg-muted transition-all">
+                  <button onClick={async () => { if(confirm('Delete item?')) { await apiRequest("DELETE", `/api/portfolio?id=${item.id}`); queryClient.invalidateQueries({queryKey: ["/api/portfolio"]}); toast.success('Item deleted'); } }} className="p-3 text-muted-foreground hover:text-destructive hover:bg-muted transition-all">
                     <Trash2 className="w-5 h-5" />
                   </button>
                 </div>

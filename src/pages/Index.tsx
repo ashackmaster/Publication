@@ -93,7 +93,7 @@ const Index = () => {
               <h2 className="font-heading text-3xl md:text-4xl italic mb-6">Publishing</h2>
               <div className="w-16 h-px bg-background/30 mb-6"></div>
               <p className="text-background/70 leading-relaxed mb-6">
-                Founded in 2024, we bring literary excellence to Bangladesh through meticulous attention to detail.
+                Established in 2026, we are dedicated to curating literary excellence in Bangladesh through a commitment to artistic integrity and meticulous craftsmanship.
               </p>
               <Link to="/contact" className="inline-flex items-center gap-2 text-background hover:text-background/70 transition-colors group text-sm tracking-widest uppercase">
                 <span>Work With Us</span>
